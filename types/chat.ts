@@ -9,6 +9,7 @@ export interface ChatMessage {
 
 export interface SendMessageRequest {
   message: string;
+  sessionId?: string; // ✅ add this
 }
 
 export interface SendMessageResponse {

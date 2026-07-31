@@ -54,7 +54,7 @@ export function useChat() {
       const response: SendMessageResponse =
         await sendChatMessage({
           sessionId: SESSION_ID,
-          message,
+          message
         });
 
       const aiMessage: ChatMessage = {
