@@ -5,7 +5,7 @@ import {
 } from "@/types/chat";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_N8N_URL,
+  baseURL: "/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -15,10 +15,8 @@ export async function sendChatMessage(
   payload: SendMessageRequest
 ): Promise<SendMessageResponse> {
 
-  const response = await api.post(
-    "/webhook/chat",
-    payload
-  );
+
+  const response = await api.post("/chat", payload);
 
   return response.data;
 }
