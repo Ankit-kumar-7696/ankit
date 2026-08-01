@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { ChatMessage } from "@/types/chat";
 
 interface MessageProps {
@@ -6,6 +9,18 @@ interface MessageProps {
 
 export default function Message({ message }: MessageProps) {
   const isUser = message.role === "user";
+
+  const [formattedTime, setFormattedTime] = useState("");
+
+  useEffect(() => {
+    setFormattedTime(
+      new Intl.DateTimeFormat("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }).format(new Date(message.createdAt))
+    );
+  }, [message.createdAt]);
 
   return (
     <div
@@ -29,10 +44,7 @@ export default function Message({ message }: MessageProps) {
             isUser ? "text-blue-100" : "text-gray-400"
           }`}
         >
-          {new Date(message.createdAt).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
+          {formattedTime}
         </p>
       </div>
     </div>

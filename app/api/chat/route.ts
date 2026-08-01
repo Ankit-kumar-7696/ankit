@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
 
     console.log("Received:", body);
 
-    const response = await fetch("http://localhost:5678/webhook/chat", {
+    const response = await fetch(process.env.N8N_WEBHOOK_URL!, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
