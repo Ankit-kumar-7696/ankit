@@ -6,20 +6,11 @@ export async function POST(req: NextRequest) {
 
     console.log("========== API REQUEST ==========");
     console.log("Request Body:", body);
-    console.log("N8N_WEBHOOK_URL:", process.env.N8N_WEBHOOK_URL);
 
-    const webhookUrl = process.env.N8N_WEBHOOK_URL;
+    // Temporary Hardcoded URL
+    const webhookUrl = "http://16.192.177.131:5678/webhook/chat";
 
-    if (!webhookUrl) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: "N8N_WEBHOOK_URL is not configured.",
-          hint: "Check the Amplify environment variables and redeploy the application.",
-        },
-        { status: 500 }
-      );
-    }
+    console.log("Webhook URL:", webhookUrl);
 
     const response = await fetch(webhookUrl, {
       method: "POST",
