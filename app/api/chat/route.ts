@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     console.log("Request Body:", body);
 
     // Temporary Hardcoded URL
-    const webhookUrl = "http://16.192.177.131:5678/webhook/chat";
+    const webhookUrl = "http://13.63.118.215:5678/webhook/chat";
 
     console.log("Webhook URL:", webhookUrl);
 
