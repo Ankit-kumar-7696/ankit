@@ -26,8 +26,10 @@ pipeline {
         }
 
         stage('Archive') {
-            steps {
-                archiveArtifacts artifacts: 'my-app/.next/**', fingerprint: true
+            steps { 
+                dir('my-app') {
+                    archiveArtifacts artifacts: '.next/**', fingerprint: true
+                }
             }
         }
     }
