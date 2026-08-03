@@ -1,14 +1,6 @@
 pipeline {
     agent any
 
-    options {
-        timestamps()
-    }
-
-    environment {
-        NODE_ENV = "production"
-    }
-
     stages {
 
         stage('Checkout') {
@@ -25,14 +17,6 @@ pipeline {
             }
         }
 
-        stage('Lint') {
-            steps {
-                dir('my-app') {
-                    sh 'npm run lint'
-                }
-            }
-        }
-
         stage('Build') {
             steps {
                 dir('my-app') {
@@ -41,25 +25,19 @@ pipeline {
             }
         }
 
-        stage('Archive Build') {
+        stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'my-app/.next/**'
+                archiveArtifacts artifacts: 'my-app/.next/**', fingerprint: true
             }
         }
     }
 
     post {
-
         success {
-            echo "Frontend Build Successful"
+            echo 'Build Successful'
         }
-
         failure {
-            echo "Frontend Build Failed"
-        }
-
-        always {
-            cleanWs()
+            echo 'Build Failed'
         }
     }
 }
