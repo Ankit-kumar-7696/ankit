@@ -9,12 +9,18 @@ pipeline {
             }
         }
 
-        stage('Test SSH') {
+        stage('Install Dependencies') {
             steps {
-                sshagent(credentials: ['ec2-ssh']) {
-                    sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@13.63.118.215 "hostname"
-                    '''
+                dir('my-app') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                dir('my-app') {
+                    sh 'npm run build'
                 }
             }
         }
