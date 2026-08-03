@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        timestamps()
+    }
+
     stages {
 
         stage('Checkout') {
@@ -24,22 +28,19 @@ pipeline {
                 }
             }
         }
-
-        stage('Archive') {
-            steps { 
-                dir('my-app') {
-                    archiveArtifacts artifacts: '.next/**', fingerprint: true
-                }
-            }
-        }
     }
 
     post {
         success {
-            echo 'Build Successful'
+            echo '✅ Frontend Build Successful'
         }
+
         failure {
-            echo 'Build Failed'
+            echo '❌ Frontend Build Failed'
+        }
+
+        always {
+            cleanWs()
         }
     }
 }
